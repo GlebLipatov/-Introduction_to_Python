@@ -4,6 +4,7 @@ def split_chocolate_bar(n, m, k):
     else:
         print('no')
 
+
 n = 3
 m = 2
 k_1 = 4

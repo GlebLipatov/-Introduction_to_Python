@@ -7,11 +7,9 @@ def calculator_crains(crains_total):
     print(f'Катя сделал {crains_Kate} журавликов.')
     print(f'Сергей сделал {crains_Sergey} журавликов.\n')
 
+
 crains_total_1 = 6
 crains_total_2 = 24
 
 calculator_crains(crains_total_1)
 calculator_crains(crains_total_2)
-
-
-
