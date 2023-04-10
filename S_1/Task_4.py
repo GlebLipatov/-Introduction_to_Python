@@ -10,6 +10,8 @@ def calculator_crains(crains_total):
 
 crains_total_1 = 6
 crains_total_2 = 24
+crains_total_3 = 60
 
 calculator_crains(crains_total_1)
 calculator_crains(crains_total_2)
+calculator_crains(crains_total_3)
