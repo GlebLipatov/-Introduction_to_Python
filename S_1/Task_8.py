@@ -7,7 +7,7 @@ def split_chocolate_bar(n, m, k):
 
 n = 3
 m = 2
-k_1 = 4
+k_1 = 2
 k_2 = 1
 
 split_chocolate_bar(n, m, k_1)
