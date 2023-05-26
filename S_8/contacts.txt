@@ -1,0 +1,15 @@
+id:1
+first name:иван
+last name:иванов
+tel:+72134567890
+#
+id:2
+first name:павел
+last name:павлов
+tel:+79876543210
+#
+id:3
+first name:петр
+last name:петров
+tel:+71234567890
+#
