@@ -8,11 +8,6 @@ TEL = 2
 
 def get_contacts():
     data = {}
-    first_name = ''
-    last_name = ''
-    full_name = ''
-    tel = ''
-    id = 0
 
     for line in file:
         line = str(line)
@@ -34,9 +29,6 @@ contacts = get_contacts()
 
 
 def get_contact(input_from_user):
-    FIRST_NAME = 0
-    LAST_NAME = 1
-    TEL = 2
     find_contacts = {}
     for contact in contacts:
         id = int(contact)
