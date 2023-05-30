@@ -1,6 +1,6 @@
-import Menu
+import controller
+import text
+import view
 
-isEnd = True
-
-while isEnd:
-    isEnd = Menu.start()
+if __name__ == '__main__':
+    controller.start()
