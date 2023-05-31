@@ -1,51 +1,48 @@
 import text
-FIRST_NAME = 0
-LAST_NAME = 1
-TEL = 2
-COMMENT = 3
+
+ID = 0
+FIRST_NAME = 1
+LAST_NAME = 2
+PHONE_NUMBER = 3
+COMMENT = 4
+
+
 def show_title(message: str, max_length: int):
     print(f'{message:^{max_length}}')
     print('-' * max_length)
 
+
 def show_menu(menu: list, title: str) -> int:
-    max_length = max(get_max_length(title), get_max_length(menu))
-    show_title(title, max_length)
+    width = get_menu_width(title, menu)
+    show_title(title, width)
     print(''.join(menu))
     choice = show_choice_menu(text.input_choice, len(menu), text.error_input_main_menu)
 
     return choice
 
+
 def show_menu_search(menu: list, title: str, search_contacts: dict) -> int:
-    max_length = max(get_max_length(title), get_max_length(menu))
-    show_title(title, max_length)
+    width = get_menu_width(title, menu)
+    show_title(title, width)
     print(''.join(menu))
     choice = show_choice_menu_search(text.input_choice, text.error_input_search, search_contacts)
 
     return choice
 
-def get_max_length(item, index: int = -1) -> int:
-    max = 0
-    if type(item) == list and index == -1:
-        for element in item:
-            if len(element) > max:
-                max = len(element)
-    elif type(item) == dict and index == -1:
-        for element in item.values():
-            if len(''.join(element)) > max:
-                max = len(''.join(element))
-    elif type(item) == dict and index == -2:
-        for element in item:
-            if len(str(element)) > max:
-                max = len(str(element))
-    elif type(item) == dict and index >= 0:
-        for value in item.values():
-            if len(value[index]) > max:
-                max = len(value[index])
-    elif type(item) == str:
-        max = len(item)
+
+def show_menu_add(title: str) -> list:
+    new_data = []
+    show_title(title, max(len(title), len(text.enter_new_data)))
+    for data in text.enter_new_data:
+        new_data.append(input(data))
+    return new_data
 
 
-    return max
+def show_search(title: str) -> str:
+    show_title(title, max(len(title), len(text.enter_contact_data)))
+    input_from_user = input('\n' + text.enter_contact_data)
+    return input_from_user
+
 
 def show_choice_menu(enter_message: str, menu_size: int, error: str) -> int:
     while True:
@@ -54,6 +51,7 @@ def show_choice_menu(enter_message: str, menu_size: int, error: str) -> int:
             return int(input_from_user)
         else:
             print(f'!!! {error}{menu_size} !!!')
+
 
 def show_choice_menu_search(enter_message: str, error: str, search_contacts: dict) -> int:
     points = ''
@@ -69,75 +67,80 @@ def show_choice_menu_search(enter_message: str, error: str, search_contacts: dic
         else:
             print(f'!!! {error}{points} !!!')
 
-def show_contacts(contacts: dict) -> int:
-    margin = 13
 
-    col_size_first_name = max(get_max_length(contacts, FIRST_NAME), len(text.first_name)) + margin
-    col_size_last_name = max(get_max_length(contacts, LAST_NAME), len(text.last_name)) + margin
-    col_size_tel = max(get_max_length(contacts, TEL), len(text.phone_number)) + margin
-    com_size_comment = max(get_max_length(contacts, COMMENT), len(text.comment)) + margin
-
-    table_size = col_size_first_name + col_size_last_name + col_size_tel + com_size_comment
-
-    print('-' * table_size)
-    print(f'{text.first_name:^{col_size_first_name}}|'
-          f'{text.last_name:^{col_size_last_name}}|'
-          f'{text.phone_number:^{col_size_tel}}|'
-          f'{text.comment:^{com_size_comment}}')
-    print('-' * table_size)
-    for contact in contacts.values():
-        print(f' {contact[FIRST_NAME].capitalize():<{col_size_first_name - 1}}|'
-              f' {contact[LAST_NAME].capitalize():<{col_size_last_name - 1}}|'
-              f'{contact[TEL]:^{col_size_tel}}|'
-              f' {contact[COMMENT].capitalize():<{com_size_comment - 1}}')
-    print('-' * table_size)
-
+def show_successfully_message(title: str) -> int:
+    show_title('\n' + title, len(title))
     return show_menu(text.back_to_main_menu, text.title_menu)
 
 
-def show_search_contact(title: str) -> str:
-    show_title(title, max(len(title), len(text.enter_contact_data)))
-    input_from_user = input('\n' + text.enter_contact_data)
-    return input_from_user
+def show_contacts(contacts: dict) -> int:
+    margin = 8
 
+    col_width_first_name = max(get_column_width(contacts, FIRST_NAME), len(text.first_name)) + margin
+    col_width_last_name = max(get_column_width(contacts, LAST_NAME), len(text.last_name)) + margin
+    col_width_tel = max(get_column_width(contacts, PHONE_NUMBER), len(text.phone_number)) + margin
+    com_width_comment = max(get_column_width(contacts, COMMENT), len(text.comment)) + margin
 
-def show_add_contact(title: str) -> list:
-    new_contact_data = []
-    show_title(title, max(len(title), get_max_length(text.enter_new_data)))
-    for data in text.enter_new_data:
-        new_contact_data.append(input(data))
-    return new_contact_data
+    table_width = col_width_first_name + col_width_last_name + col_width_tel + com_width_comment
 
-
-def show_successfully_message(isAdd: bool, title: str) -> int:
-    show_title('\n' + title, len(text.contact_added)) if isAdd else show_title(text.error, len(text.error))
+    print('-' * table_width)
+    print(f'{text.first_name:^{col_width_first_name}}|'
+          f'{text.last_name:^{col_width_last_name}}|'
+          f'{text.phone_number:^{col_width_tel}}|'
+          f'{text.comment:^{com_width_comment}}')
+    print('-' * table_width)
+    for contact in contacts.values():
+        print(f' {contact.first_name.capitalize():<{col_width_first_name - 1}}|'
+              f' {contact.last_name.capitalize():<{col_width_last_name - 1}}|'
+              f'{contact.phone_number:^{col_width_tel}}|'
+              f' {contact.comment.capitalize():<{com_width_comment - 1}}')
+    print('-' * table_width)
 
     return show_menu(text.back_to_main_menu, text.title_menu)
 
 
 def show_contacts_to_change(find_contacts: dict) -> int:
-    margin = 13
-    col_size_id = max(get_max_length(find_contacts, -2), len(text.id)) + margin
-    col_size_first_name = max(get_max_length(find_contacts, FIRST_NAME), len(text.first_name)) + margin
-    col_size_last_name = max(get_max_length(find_contacts, LAST_NAME), len(text.last_name)) + margin
-    col_size_tel = max(get_max_length(find_contacts, TEL), len(text.phone_number)) + margin
-    com_size_comment = max(get_max_length(find_contacts, COMMENT), len(text.comment)) + margin
+    margin = 8
 
-    table_size = col_size_first_name + col_size_last_name + col_size_tel + com_size_comment + col_size_id
+    col_width_id = max(get_column_width(find_contacts, ID), len(text.id)) + margin
+    col_width_first_name = max(get_column_width(find_contacts, FIRST_NAME), len(text.first_name)) + margin
+    col_width_last_name = max(get_column_width(find_contacts, LAST_NAME), len(text.last_name)) + margin
+    col_width_tel = max(get_column_width(find_contacts, PHONE_NUMBER), len(text.phone_number)) + margin
+    com_width_comment = max(get_column_width(find_contacts, COMMENT), len(text.comment)) + margin
 
-    print('-' * table_size)
-    print(f'{text.id:^{col_size_id}}|'
-          f'{text.first_name:^{col_size_first_name}}|'
-          f'{text.last_name:^{col_size_last_name}}|'
-          f'{text.phone_number:^{col_size_tel}}|'
-          f'{text.comment:^{com_size_comment}}')
-    print('-' * table_size)
-    for contact in find_contacts:
-        print(f' {contact:^{col_size_id - 1}}|'
-              f' {find_contacts[contact][FIRST_NAME].capitalize():<{col_size_first_name - 1}}|'
-              f' {find_contacts[contact][LAST_NAME].capitalize():<{col_size_last_name - 1}}|'
-              f'{find_contacts[contact][TEL]:^{col_size_tel}}|'
-              f' {find_contacts[contact][COMMENT].capitalize():<{com_size_comment - 1}}')
-    print('-' * table_size)
+    table_width = col_width_first_name + col_width_last_name + col_width_tel + com_width_comment + col_width_id
+
+    print('-' * table_width)
+    print(f'{text.id:^{col_width_id}}|'
+          f'{text.first_name:^{col_width_first_name}}|'
+          f'{text.last_name:^{col_width_last_name}}|'
+          f'{text.phone_number:^{col_width_tel}}|'
+          f'{text.comment:^{com_width_comment}}')
+    print('-' * table_width)
+    for contact in find_contacts.values():
+        print(f' {contact.get_contact_data()[ID]:^{col_width_id - 1}}|'
+              f' {contact.get_contact_data()[FIRST_NAME].capitalize():<{col_width_first_name - 1}}|'
+              f' {contact.get_contact_data()[LAST_NAME].capitalize():<{col_width_last_name - 1}}|'
+              f'{contact.get_contact_data()[PHONE_NUMBER]:^{col_width_tel}}|'
+              f' {contact.get_contact_data()[COMMENT].capitalize():<{com_width_comment - 1}}')
+    print('-' * table_width)
 
     return show_choice_menu_search(text.enter_contact, text.error_input_main_menu, find_contacts)
+
+
+def get_menu_width(title: str, menu: list) -> int:
+    menu_width = 0
+    title_width = len(title)
+    for element in menu:
+        if len(element) > menu_width:
+            menu_width = len(element)
+    return max(menu_width, title_width)
+
+
+def get_column_width(contacts: dict, column: int) -> int:
+    max_width = 0
+    for contact in contacts.values():
+        curr_column = len(contact.get_contact_data()[column])
+        if curr_column > max_width:
+            max_width = curr_column
+    return max_width
