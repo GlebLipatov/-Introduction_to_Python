@@ -35,7 +35,7 @@ class PhoneBook:
         find_contacts = {}
         for contact in self.phone_book.values():
             contact_data = ' '.join(contact.get_contact_data())
-            if search_data in contact_data:
+            if search_data.lower() in contact_data:
                 find_contacts[int(contact.id)] = contact
         return find_contacts
 

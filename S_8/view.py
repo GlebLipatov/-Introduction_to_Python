@@ -41,7 +41,7 @@ def show_menu_add(title: str) -> list:
 def show_search(title: str) -> str:
     show_title(title, max(len(title), len(text.enter_contact_data)))
     input_from_user = input('\n' + text.enter_contact_data)
-    return input_from_user
+    return str(input_from_user)
 
 
 def show_choice_menu(enter_message: str, menu_size: int, error: str) -> int:

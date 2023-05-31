@@ -20,7 +20,7 @@ class Contact:
         self.comment = new_comment
 
     def get_contact_data(self) -> list:
-        return [self.id, self.first_name, self.last_name, self.phone_number, self.comment]
+        return [str(self.id), self.first_name, self.last_name, self.phone_number, self.comment]
 
     def get_data_to_save(self) -> str:
         return f'{self.id};{self.first_name};{self.last_name};{self.phone_number};{self.comment}\n'
