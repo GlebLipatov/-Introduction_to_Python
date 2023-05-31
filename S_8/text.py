@@ -29,8 +29,6 @@ last_name = 'Фамилия'
 phone_number = 'Номер телефона'
 comment = 'Комментарий'
 
-
-
 error_input_main_menu = 'Необходимо ввести цифры от 1 до '
 error_input_search = 'Необходимо ввести цифры '
 contact_added = 'Контакт успешно добавлен'

@@ -48,6 +48,7 @@ class PhoneBook:
         self.id_next += 1
 
     def change(self, contact: Contact, new_data: list):
+        # у индексов вычитаю 1 потому что new_data начинается с first_data, а не с id
         if new_data[self.FIRST_NAME - 1] != '':
             contact.set_first_name(new_data[self.FIRST_NAME - 1])
         if new_data[self.LAST_NAME - 1] != '':
