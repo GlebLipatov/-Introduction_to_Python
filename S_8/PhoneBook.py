@@ -14,13 +14,13 @@ class PhoneBook:
         self.path = path
         self.get_contacts()
 
-    def load_contacts(self) -> list:
+    def load(self) -> list:
         with open(self.path, 'r', encoding='utf-8') as file:
             data = file.readlines()
         return data
 
     def get_contacts(self):
-        data = self.load_contacts()
+        data = self.load()
         for contact in data:
             contact = contact.strip().split(';')
             self.phone_book[int(contact[self.ID])] = Contact.Contact(contact[self.ID],
